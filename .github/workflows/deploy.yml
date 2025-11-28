@@ -62,7 +62,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
           # Create SSH key file
-          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private_key.pem
           chmod 600 private_key.pem
 
           # Copy deployment package to EC2
@@ -165,7 +165,7 @@ jobs:
         run: |
           echo "🔄 Attempting to rollback to previous version..."
 
-          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private_key.pem
           chmod 600 private_key.pem
 
           ssh -i private_key.pem -o StrictHostKeyChecking=no \
